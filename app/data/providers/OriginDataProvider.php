@@ -35,11 +35,13 @@ class OriginDataProvider implements ICountyDataProvider, ICrimeDataProvider, ICi
 
         foreach ($counties as $county) {
             $id = $county->getId();
-            $currentCrime = $crimes[$id];
-            if (sizeof($currentCrime) > 0) {
-                arsort($currentCrime["Crimes"]);
-                $currentCrime["Crimes"] = array_slice($currentCrime["Crimes"], 0, $countDistribution);
-                $county->setCrimeStats(CrimeStats::withRate($currentCrime["Frequency"] / 100000, $currentCrime["Crimes"]));
+            if (array_key_exists($id, $crimes)) {
+                $currentCrime = $crimes[$id];
+                if (sizeof($currentCrime) > 0) {
+                    arsort($currentCrime["Crimes"]);
+                    $currentCrime["Crimes"] = array_slice($currentCrime["Crimes"], 0, $countDistribution);
+                    $county->setCrimeStats(CrimeStats::withRate($currentCrime["Frequency"] / 100000, $currentCrime["Crimes"]));
+                }
             }
         }
     }

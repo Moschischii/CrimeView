@@ -30,6 +30,11 @@ class County implements JsonSerializable
         $this->crimeStats = $crimeStats;
     }
 
+    public function getCrimeStats()
+    {
+        return $this->crimeStats;
+    }
+
     public function jsonSerialize()
     {
         return [
